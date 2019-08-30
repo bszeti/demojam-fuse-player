@@ -26,8 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-// load regular Spring XML file from the classpath that contains the Camel XML DSL
-@ImportResource({"classpath:spring/camel-context.xml"})
+//@ImportResource({"classpath:spring/camel-context.xml"})
 public class Application {
 
     /**
@@ -38,8 +37,4 @@ public class Application {
     }
 
 
-//    @Bean
-//    ExecutorService shutdownExecutor() {
-//        return Executors.newSingleThreadExecutor();
-//    }
 }

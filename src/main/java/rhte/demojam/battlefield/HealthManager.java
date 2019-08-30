@@ -47,8 +47,8 @@ public class HealthManager {
         return current;
     }
 
-    public void setCurrent(AtomicInteger current) {
-        this.current = current;
+    public void setCurrent(int current) {
+        this.current.set(current);
     }
 
     public String getLasthitby() {

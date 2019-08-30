@@ -13,6 +13,8 @@
 
         <!-- configure the Fuse version you want to use here -->
         <fuse.bom.version>7.4.0.fuse-740036-redhat-00002</fuse.bom.version>
+        <!--<fuse.bom.version>7.1.0.fuse-710019-redhat-00002</fuse.bom.version>-->
+        <rest-assured.version>3.1.0</rest-assured.version>
     </properties>
 
     <dependencyManagement>
@@ -23,6 +25,11 @@
                 <version>${fuse.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>${rest-assured.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -58,6 +65,24 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-servlet-starter</artifactId>
         </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-spring</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
