@@ -38,7 +38,7 @@ public class RouteTest {
 
 
     @Test
-    public void syncSegmentsWithParentNoGIS() {
+    public void hitByPlayer() {
         healthManager.setCurrent(10);
 
         when()
