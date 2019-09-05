@@ -1,0 +1,38 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  template: battlefield-test
+  player: ${PLAYER_NAME}
+metadata:
+  name: battlefield-test
+objects:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    name: ${PLAYER_NAME}
+  spec:
+    containers:
+    - name: player
+      image: 'image-registry.openshift-image-registry.svc:5000/myproject/fuse-player-app'
+      imagePullPolicy: Always
+      env:
+      - name: BATTLEFIELD_PLAYER_NAME
+        value: ${PLAYER_NAME}
+      - name: BATTLEFIELD_PLAYER_URLS
+        value: ${PLAYER_URLS}
+    restartPolicy: Never
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: ${PLAYER_NAME}
+  spec:
+    ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+    selector:
+      player: ${PLAYER_NAME}
+    type: ClusterIP
+parameters:
+- name: PLAYER_NAME
+- name: PLAYER_URLS
