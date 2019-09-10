@@ -27,3 +27,7 @@ target
 **/local
 **/*-local.*
 
+.classpath
+.project
+.settings/
+testout/

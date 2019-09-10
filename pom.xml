@@ -65,6 +65,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-servlet-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http-starter</artifactId>
+        </dependency>
 
         <!-- Test -->
         <dependency>

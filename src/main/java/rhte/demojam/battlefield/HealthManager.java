@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HealthManager {
-    @Value("${health.max}")
+    @Value("${BATTLEFIELD_MAX_HEALTH}")
     private int max;
 
     private AtomicInteger current = new AtomicInteger();

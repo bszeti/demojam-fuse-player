@@ -20,6 +20,10 @@ objects:
         value: ${PLAYER_NAME}
       - name: BATTLEFIELD_PLAYER_URLS
         value: ${PLAYER_URLS}
+      - name: BATTLEFIELD_MAX_HEALTH
+        value: ${MAX_HEALTH}
+      - name: BATTLEFIELD_HIT_PERIOD
+        value: ${HIT_PERIOD}
     restartPolicy: Never
 - apiVersion: v1
   kind: Service
@@ -36,3 +40,7 @@ objects:
 parameters:
 - name: PLAYER_NAME
 - name: PLAYER_URLS
+- name: MAX_HEALTH
+  value: "10"
+- name: HIT_PERIOD
+  value: "2000"

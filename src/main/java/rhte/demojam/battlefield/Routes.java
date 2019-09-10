@@ -1,6 +1,7 @@
 package rhte.demojam.battlefield;
 
 
+import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -28,6 +29,7 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
     @Override
     public void configure() throws Exception {
 
+
         log.debug("Player URLs: {}",battleField.urls);
 
         restConfiguration("servlet")
@@ -39,7 +41,7 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
             .get("hit/{byplayer}").route().routeId("rhte.demojam.battlefield.hitby")
                 .log("Hit by ${header.byplayer}.")
                 .setBody().method(healthManager,"decreaseHealth(${header.byplayer})")
-                .log("Health after hit by ${header.byplayer}: ${body}")
+                .log("Health: ${body}")
                 .wireTap("direct:checkAlive")
 
         ;
@@ -55,15 +57,19 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
         ;
 
         //Hit another player - random pick
-        from("timer:hitPlayer?period={{hit.period}}").routeId("rhte.demojam.battlefield.timer")
-            .log("Shutting down...")
+        from("timer:hitPlayer?period={{BATTLEFIELD_HIT_PERIOD}}").routeId("rhte.demojam.battlefield.hitplayer")
+            .onException(Exception.class)
+                .maximumRedeliveries(0)
+                .handled(true)
+                .log("Failed to hit player: ${exchangeProperty.playerUrl}. ${exception} - HTTP${header."+Exchange.HTTP_RESPONSE_CODE+"}")
+            .end()
 
             .setProperty("battlefield",simple("${ref:battlefield}"))
-            .log(LoggingLevel.DEBUG,"Player urls size: ${exchangeProperty.battlefield.urls.size}")
             .setProperty("playerIndex",simple("${random(${exchangeProperty.battlefield.urls.size})}"))
-            .log(LoggingLevel.DEBUG,"Player index: ${exchangeProperty.playerIndex}")
+            .log(LoggingLevel.DEBUG,"Player index: ${exchangeProperty.playerIndex}; total: ${exchangeProperty.battlefield.urls.size}")
             .setProperty("playerUrl",simple("${exchangeProperty.battlefield.urls[${exchangeProperty.playerIndex}]}"))
             .log("Hit player: ${exchangeProperty.playerUrl}")
+            .toD("http://${exchangeProperty.playerUrl}/hit/{{BATTLEFIELD_PLAYER_NAME}}?synchronous=true")
         ;
 
 
