@@ -13,7 +13,7 @@ objects:
   spec:
     containers:
     - name: player
-      image: 'image-registry.openshift-image-registry.svc:5000/myproject/fuse-player-app'
+      image: ${IMAGE}
       imagePullPolicy: Always
       env:
       - name: BATTLEFIELD_PLAYER_NAME
@@ -44,3 +44,5 @@ parameters:
   value: "10"
 - name: HIT_PERIOD
   value: "2000"
+- name: IMAGE
+  value: image-registry.openshift-image-registry.svc:5000/myproject/fuse-player-app
