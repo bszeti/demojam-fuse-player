@@ -34,11 +34,11 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
 
         restConfiguration("servlet")
             .bindingMode(RestBindingMode.off)
-            .contextPath("/")
+            //.contextPath("/hit")
         ;
 
-        rest()
-            .get("hit/{byplayer}").route().routeId("rhte.demojam.battlefield.hitby")
+        rest("hit")
+            .get("{byplayer}").route().routeId("rhte.demojam.battlefield.hitby")
                 .log("Hit by ${header.byplayer}.")
                 .setBody().method(healthManager,"decreaseHealth(${header.byplayer})")
                 .log("Health: ${body}")
@@ -69,7 +69,7 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
             .log(LoggingLevel.DEBUG,"Player index: ${exchangeProperty.playerIndex}; total: ${exchangeProperty.battlefield.urls.size}")
             .setProperty("playerUrl",simple("${exchangeProperty.battlefield.urls[${exchangeProperty.playerIndex}]}"))
             .log("Hit player: ${exchangeProperty.playerUrl}")
-            .toD("http://${exchangeProperty.playerUrl}/hit/{{BATTLEFIELD_PLAYER_NAME}}?synchronous=true")
+            .toD("http://${exchangeProperty.playerUrl}/api/hit/{{BATTLEFIELD_PLAYER_NAME}}?synchronous=true")
         ;
 
 

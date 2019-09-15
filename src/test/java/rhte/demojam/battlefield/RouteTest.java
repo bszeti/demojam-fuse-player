@@ -70,7 +70,7 @@ public class RouteTest {
     public void hitByPlayer() {
 
         when()
-            .get("/hit/test")
+            .get("/api/hit/test")
         .then()
             .statusCode(200)
             .body(equalTo("9"))
