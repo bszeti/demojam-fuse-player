@@ -78,6 +78,17 @@ public class RouteTest {
     }
 
     @Test
+    public void currenthealth() {
+
+        when()
+            .get("/api/status/currenthealth")
+            .then()
+            .statusCode(200)
+            .body(equalTo("10"))
+        ;
+    }
+
+    @Test
     public void hitPlayer() {
         //Hit someone. In the players list we only have "localhost", so we will call our own endpoint;
         producer.sendBody(null);

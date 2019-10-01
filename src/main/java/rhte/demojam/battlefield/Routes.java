@@ -45,6 +45,11 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
                 .wireTap("direct:checkAlive")
 
         ;
+        rest("status")
+            .get("currenthealth").route().routeId("rhte.demojam.battlefield.currenthealth")
+            .setBody(method(healthManager,"getCurrent"))
+            ;
+
 
         //Check if health was zero and we should terminate
         from("direct:checkAlive").routeId("rhte.demojam.battlefield.checkZeroHealth")
