@@ -62,7 +62,7 @@ public class Routes extends RouteBuilder implements ApplicationContextAware {
         ;
 
         //Hit another player - random pick
-        from("timer:hitPlayer?period={{BATTLEFIELD_HIT_PERIOD}}").routeId("rhte.demojam.battlefield.hitplayer")
+        from("timer:hitPlayer?period={{BATTLEFIELD_HIT_PERIOD_MS}}").routeId("rhte.demojam.battlefield.hitplayer")
             .onException(Exception.class)
                 .maximumRedeliveries(0)
                 .handled(true)
